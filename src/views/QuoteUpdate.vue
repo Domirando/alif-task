@@ -11,7 +11,26 @@
       <label for="rating">Genre:</label>
       <input id="genre" v-model="genre" />
 
-      <input class="button" type="submit" value="Submit" />
+      <span v-if="genre && author && quote">
+        <router-link to="/">
+          <input
+            class="button"
+            type="submit"
+            @click="updateQuote(`update`)"
+            value="Submit"
+          />
+        </router-link>
+      </span>
+      <span v-else>
+        <router-link to="/">
+          <input
+            class="button"
+            type="submit"
+            @click="updateQuote(`add`)"
+            value="Submit"
+          />
+        </router-link>
+      </span>
     </form>
   </div>
 </template>
@@ -21,9 +40,9 @@ export default {
   data() {
     return {
       msg: "",
-      quote: "",
-      author: "",
-      genre: "",
+      quote: null,
+      author: null,
+      genre: null,
       updated_in: "",
       written_in: "",
     };
@@ -44,10 +63,24 @@ export default {
         genre: this.genre,
       };
       this.$emit("quote-submitted", updatedQuote);
-
-      this.quote = "";
-      this.author = "";
-      this.genre = "";
+    },
+    updateQuote(action) {
+      let formatted_date = new Date().toJSON().slice(0, 10).replace(/-/g, "/");
+      if (action === `update`) {
+        this.$store.dispatch("quotesModule/quoteUpdater", {
+          quote: this.quote,
+          author: this.author,
+          genre: this.genre,
+          updated_in: formatted_date,
+        });
+      } else {
+        this.$store.dispatch("quotesModule/quoteAdd", {
+          quote: this.quote,
+          author: this.author,
+          genre: this.genre,
+          written_in: formatted_date,
+        });
+      }
     },
   },
 };

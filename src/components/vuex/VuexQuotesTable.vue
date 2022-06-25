@@ -24,6 +24,12 @@
           </th>
           <th
             scope="col"
+            class="px-6 text-center py-3 text-left font-extrabold text-xs font-medium text-gray-500 uppercase tracking-wider"
+          >
+            Genre
+          </th>
+          <th
+            scope="col"
             class="px-6 py-3 text-left font-extrabold text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
           >
             Updated in
@@ -32,7 +38,7 @@
             scope="col"
             class="px-6 py-3 text-left font-extrabold text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
           >
-            Update
+            Edit
           </th>
           <th
             scope="col"
@@ -60,22 +66,39 @@
           <td class="px-6 py-4 text-center whitespace-nowrap">
             <div class="text-sm text-gray-700">{{ quote.author }}</div>
           </td>
+          <td class="px-6 py-4 text-center whitespace-nowrap">
+            <div class="text-sm text-gray-700">{{ quote.genre }}</div>
+          </td>
           <td
             class="px-6 py-4 justify-center flex gap-x-[10px] whitespace-nowrap text-right text-sm"
           >
             {{ quote.updated_in }}
           </td>
           <td class="px-6 py-4 text-center whitespace-nowrap">
-            <fa icon="edit" @click="shareData(quote)" />
+            <fa class="icon" icon="edit" @click="shareData(quote)" />
           </td>
           <td
             class="px-6 py-4 justify-center flex gap-x-[10px] whitespace-nowrap text-right text-sm"
           >
-            <fa icon="trash" />
+            <fa
+              class="icon"
+              @click="
+                openModal = true;
+                selectedQuote = quote.id;
+              "
+              icon="trash"
+            />
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+  <div v-if="openModal" class="modal">
+    <p>Do you want to continue deleting quote?</p>
+    <div class="btns">
+      <button @click="deleteQuote(selectedQuote)">Continue</button>
+      <button @click="openModal = false">Cancel</button>
+    </div>
   </div>
 </template>
 
@@ -87,6 +110,12 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  data() {
+    return {
+      openModal: false,
+      selectedQuote: null,
+    };
   },
   methods: {
     shareData(quote) {
@@ -101,6 +130,10 @@ export default {
         },
       });
     },
+    deleteQuote(index) {
+      this.openModal = false;
+      this.$store.dispatch("quotesModule/quoteDelete", { id: index });
+    },
   },
 };
 </script>
@@ -111,10 +144,24 @@ export default {
 }
 
 h1 {
-  @apply mb-5 text-lg text-red-600;
+  @apply mb-12 text-2xl text-red-600;
 }
 
 .quote_container {
   @apply text-amber-600 flex justify-between my-3;
+}
+
+.icon {
+  @apply cursor-pointer;
+}
+.modal {
+  @apply absolute top-[240px] left-[400px] flex flex-col w-[425px] p-[20px] bg-white;
+  border: 2px solid #d8d8d8;
+  -webkit-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
+  -moz-box-shadow: 0px 2px 15px -12px rgba(0, 0, 0, 0.57);
+  box-shadow: 4px 8px 4px rgba(0, 0, 0, 0.57);
+}
+.btns {
+  @apply flex justify-between mt-10 text-red-700;
 }
 </style>
