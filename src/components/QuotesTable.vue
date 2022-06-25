@@ -6,21 +6,21 @@
         <tr>
           <th
             scope="col"
-            class="px-6 py-4 text-left text-xs text-center font-extrabold font-medium text-gray-500 uppercase tracking-wider"
+            class="px-6 py-4 text-left text-xs text-center w-1/3 bg-cyan-200 font-extrabold font-medium text-gray-500 uppercase tracking-wider"
           >
-            From
+            Quote
           </th>
           <th
             scope="col"
             class="px-6 text-center py-3 text-left font-extrabold text-xs font-medium text-gray-500 uppercase tracking-wider"
           >
-            To
+            Author
           </th>
           <th
             scope="col"
             class="px-6 py-3 text-left font-extrabold text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
           >
-            Amount
+            Updated in
           </th>
           <th
             scope="col"
@@ -36,13 +36,17 @@
           </th>
         </tr>
       </thead>
-      <tbody class="bg-white divide-y divide-gray-200">
+      <tbody
+        class="bg-white divide-y divide-gray-200"
+        v-bind:key="quote.id"
+        v-for="quote in quotes"
+      >
         <tr>
           <td class="px-6 py-4 whitespace-nowrap">
             <div class="flex items-center justify-center">
               <div>
                 <div class="text-sm font-medium text-gray-900"></div>
-                <div class="text-sm text-gray-700">asdfasdf</div>
+                <div class="text-sm text-gray-700">{{ quote.quote }}</div>
               </div>
             </div>
           </td>
@@ -53,7 +57,7 @@
           <td
             class="px-6 py-4 justify-center flex gap-x-[10px] whitespace-nowrap text-right text-sm"
           >
-            sfasgf
+            {{ quote.author }}
           </td>
           <td class="px-6 py-4 text-center whitespace-nowrap">
             <fa icon="edit" />
