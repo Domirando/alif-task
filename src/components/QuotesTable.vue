@@ -1,4 +1,5 @@
 <template>
+  <h1>List of Quotes</h1>
   <div class="quote_container">
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50">
@@ -77,8 +78,11 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+h1 {
+  @apply mb-5 text-lg text-red-600;
+}
+
 .quote_container {
   @apply text-amber-600 flex justify-between;
 }

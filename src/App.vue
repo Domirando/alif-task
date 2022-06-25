@@ -1,8 +1,10 @@
 <template>
   <nav>
-    <router-link to="/">List of Quotes</router-link>
+    <router-link to="/" class="logo">AlifTech</router-link>
   </nav>
-  <router-view class="roouter" />
+  <main>
+    <router-view />
+  </main>
   <footer>Copyright © 2022 Task AlifTech 2022. All rights reserved</footer>
 </template>
 
@@ -18,27 +20,15 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  min-height: 100%;
-  position: relative;
+  @apply mx-24 relative min-h-full text-[#2c3e50] text-center;
 }
 
 nav {
   padding: 30px;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-.roouter {
-  @apply mx-16;
-}
-
-nav a.router-link-exact-active {
-  @apply text-cyan-700;
+nav .logo {
+  @apply font-bold float-left text-2xl;
 }
 
 footer {
