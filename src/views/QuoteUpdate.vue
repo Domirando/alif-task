@@ -11,7 +11,7 @@
       <label for="rating">Genre:</label>
       <input id="genre" v-model="genre" />
 
-      <span v-if="genre && author && quote">
+      <span v-if="id">
         <router-link to="/">
           <input
             class="button"
@@ -41,17 +41,18 @@ export default {
     return {
       msg: "",
       id: null,
-      quote: null,
-      author: null,
-      genre: null,
+      quote: "",
+      author: "",
+      genre: "",
       updated_in: "",
       written_in: "",
       date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
     };
   },
   created() {
+    let index = this.$route.params.id--;
     this.msg = this.$route.params.msg;
-    this.id = this.$route.params.id--;
+    this.id = index;
     this.quote = this.$route.params.quote;
     this.author = this.$route.params.author;
     this.genre = this.$route.params.genre;
@@ -68,6 +69,7 @@ export default {
       });
     },
     addQuote() {
+      console.log("this is", this.genre);
       this.$store.dispatch("quotesModule/quoteAdd", {
         quote: this.quote,
         author: this.author,

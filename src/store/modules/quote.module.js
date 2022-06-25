@@ -38,7 +38,6 @@ export default {
       state.quotes.quotes[payload.id].updated_in = payload.updated_in;
     },
     ADD_QUOTE(state, payload) {
-      console.log("added", payload);
       state.quotes.quotes.push({
         id: state.quotes.quotes.length,
         quote: payload.quote,
