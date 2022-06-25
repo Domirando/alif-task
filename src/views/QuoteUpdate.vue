@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h3>{{ msg }}</h3>
-    <form class="review-form" @submit.prevent="onSubmit">
+    <form class="review-form" @submit.prevent="">
       <label for="name">Author:</label>
       <input id="name" v-model="author" />
 
@@ -16,7 +16,7 @@
           <input
             class="button"
             type="submit"
-            @click="updateQuote(`update`)"
+            @click="updateQuote()"
             value="Submit"
           />
         </router-link>
@@ -26,7 +26,7 @@
           <input
             class="button"
             type="submit"
-            @click="updateQuote(`add`)"
+            @click="addQuote()"
             value="Submit"
           />
         </router-link>
@@ -40,47 +40,40 @@ export default {
   data() {
     return {
       msg: "",
+      id: null,
       quote: null,
       author: null,
       genre: null,
       updated_in: "",
       written_in: "",
+      date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
     };
   },
   created() {
-    let formatted_date = new Date().toJSON().slice(0, 10).replace(/-/g, "/");
     this.msg = this.$route.params.msg;
+    this.id = this.$route.params.id--;
     this.quote = this.$route.params.quote;
     this.author = this.$route.params.author;
     this.genre = this.$route.params.genre;
-    this.updated_in = formatted_date;
+    this.updated_in = this.date;
   },
   methods: {
-    onSubmit() {
-      let updatedQuote = {
+    updateQuote() {
+      this.$store.dispatch("quotesModule/quoteUpdater", {
+        id: this.id,
         quote: this.quote,
         author: this.author,
         genre: this.genre,
-      };
-      this.$emit("quote-submitted", updatedQuote);
+        updated_in: this.date,
+      });
     },
-    updateQuote(action) {
-      let formatted_date = new Date().toJSON().slice(0, 10).replace(/-/g, "/");
-      if (action === `update`) {
-        this.$store.dispatch("quotesModule/quoteUpdater", {
-          quote: this.quote,
-          author: this.author,
-          genre: this.genre,
-          updated_in: formatted_date,
-        });
-      } else {
-        this.$store.dispatch("quotesModule/quoteAdd", {
-          quote: this.quote,
-          author: this.author,
-          genre: this.genre,
-          written_in: formatted_date,
-        });
-      }
+    addQuote() {
+      this.$store.dispatch("quotesModule/quoteAdd", {
+        quote: this.quote,
+        author: this.author,
+        genre: this.genre,
+        written_in: this.date,
+      });
     },
   },
 };

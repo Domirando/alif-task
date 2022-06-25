@@ -32,16 +32,13 @@ export default {
   },
   mutations: {
     UPDATER_QUOTE(state, payload) {
-      let quote = state.quotes.quotes.filter((quote) =>
-        quote.id === payload.id ? quote : null
-      );
-      quote.quote = payload.quote;
-      quote.author = payload.author;
-      quote.genre = payload.genre;
-      quote.updated_in = payload.updated_in;
-      console.log(payload.quote);
+      state.quotes.quotes[payload.id].quote = payload.quote;
+      state.quotes.quotes[payload.id].author = payload.author;
+      state.quotes.quotes[payload.id].genre = payload.genre;
+      state.quotes.quotes[payload.id].updated_in = payload.updated_in;
     },
     ADD_QUOTE(state, payload) {
+      console.log("added", payload);
       state.quotes.quotes.push({
         id: state.quotes.quotes.length,
         quote: payload.quote,
@@ -52,8 +49,8 @@ export default {
       });
     },
     DELETE_QUOTE(state, payload) {
-      state = state.quotes.quotes.filter((quote) =>
-        quote.id !== payload.id ? quote : null
+      state.quotes.quotes = state.quotes.quotes.filter(
+        (quote) => quote.id !== payload.id
       );
     },
   },

@@ -124,6 +124,7 @@ export default {
         name: "quotes-update",
         params: {
           msg: "Updating",
+          id: quote.id,
           quote: quote.quote,
           author: quote.author,
           genre: quote.genre,
