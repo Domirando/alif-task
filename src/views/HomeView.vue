@@ -1,22 +1,21 @@
 <template>
   <div class="home">
-    <quotes-table
-      quote="Never Ever Loose someone's trust"
-      author="Domirando"
-      genre="idk"
-      time="15-02-2021"
-    />
+    <vuex-quotes-table :quotes="quotesState" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import quotesTable from "@/components/QuotesTable.vue";
+import VuexQuotesTable from "@/components/vuex/VuexQuotesTable.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "HomeView",
   components: {
-    quotesTable,
+    VuexQuotesTable,
   },
+  computed: mapGetters({
+    quotesState: "getQuotesState",
+  }),
 };
 </script>

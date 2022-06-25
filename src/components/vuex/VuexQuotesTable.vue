@@ -1,5 +1,11 @@
 <template>
   <h1>List of Quotes</h1>
+  <div class="top_bar">
+    <input type="text" placeholder="Quote..." />
+    <input type="text" placeholder="Author..." />
+    <input type="button" value="Search" />
+    <router-link to="/update">Add new quote</router-link>
+  </div>
   <div class="quote_container">
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50">
@@ -38,8 +44,8 @@
       </thead>
       <tbody
         class="bg-white divide-y divide-gray-200"
-        v-bind:key="quote.id"
-        v-for="quote in quotes"
+        v-for="(quote, index) in quotes"
+        :key="index"
       >
         <tr>
           <td class="px-6 py-4 whitespace-nowrap">
@@ -52,15 +58,15 @@
           </td>
 
           <td class="px-6 py-4 text-center whitespace-nowrap">
-            <div class="text-sm text-gray-700">sfasffsa</div>
+            <div class="text-sm text-gray-700">{{ quote.author }}</div>
           </td>
           <td
             class="px-6 py-4 justify-center flex gap-x-[10px] whitespace-nowrap text-right text-sm"
           >
-            {{ quote.author }}
+            {{ quote.updated_in }}
           </td>
           <td class="px-6 py-4 text-center whitespace-nowrap">
-            <fa icon="edit" />
+            <fa icon="edit" @click="shareData(quote)" />
           </td>
           <td
             class="px-6 py-4 justify-center flex gap-x-[10px] whitespace-nowrap text-right text-sm"
@@ -75,19 +81,40 @@
 
 <script>
 export default {
-  name: "quotes-table",
+  name: "vuex-quotes-table",
   props: {
-    quotes: [],
+    quotes: {
+      type: Array,
+      required: true,
+    },
+  },
+  methods: {
+    shareData(quote) {
+      console.log("in sharedata method", quote);
+      this.$router.push({
+        name: "quotes-update",
+        params: {
+          msg: "Updating",
+          quote: quote.quote,
+          author: quote.author,
+          genre: quote.genre,
+        },
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
+.top_bar {
+  @apply text-slate-700 flex justify-between italic;
+}
+
 h1 {
   @apply mb-5 text-lg text-red-600;
 }
 
 .quote_container {
-  @apply text-amber-600 flex justify-between;
+  @apply text-amber-600 flex justify-between my-3;
 }
 </style>

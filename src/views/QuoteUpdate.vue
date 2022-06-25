@@ -3,10 +3,10 @@
     <h3>{{ msg }}</h3>
     <form class="review-form" @submit.prevent="onSubmit">
       <label for="name">Author:</label>
-      <input id="name" v-model="name" />
+      <input id="name" v-model="author" />
 
       <label for="review">Quote:</label>
-      <textarea id="review" v-model="review"></textarea>
+      <textarea id="review" v-model="quote"></textarea>
 
       <label for="rating">Genre:</label>
       <input id="genre" v-model="genre" />
@@ -18,31 +18,36 @@
 
 <script>
 export default {
-  props: {
-    msg: {
-      type: String,
-      required: true,
-    },
-  },
   data() {
     return {
-      name: "",
-      review: "",
-      rating: null,
+      msg: "",
+      quote: "",
+      author: "",
+      genre: "",
+      updated_in: "",
+      written_in: "",
     };
+  },
+  created() {
+    let formatted_date = new Date().toJSON().slice(0, 10).replace(/-/g, "/");
+    this.msg = this.$route.params.msg;
+    this.quote = this.$route.params.quote;
+    this.author = this.$route.params.author;
+    this.genre = this.$route.params.genre;
+    this.updated_in = formatted_date;
   },
   methods: {
     onSubmit() {
-      let productReview = {
-        name: this.name,
-        review: this.review,
-        rating: this.rating,
+      let updatedQuote = {
+        quote: this.quote,
+        author: this.author,
+        genre: this.genre,
       };
-      this.$emit("review-submitted", productReview);
+      this.$emit("quote-submitted", updatedQuote);
 
-      this.name = "";
-      this.review = "";
-      this.rating = null;
+      this.quote = "";
+      this.author = "";
+      this.genre = "";
     },
   },
 };
