@@ -2,6 +2,10 @@ export default {
   namespaced: true,
   state: {
     quotes: {
+      search: {
+        quote_search: "",
+        author_search: "",
+      },
       quotes: [
         {
           id: 1,
@@ -52,6 +56,24 @@ export default {
         (quote) => quote.id !== payload.id
       );
     },
+    SEARCH(state, payload) {
+      state.quotes.search.quote_search = payload.search_quote;
+      state.quotes.search.author_search = payload.search_author;
+      state.quotes.quotes = state.quotes.quotes.filter((quote) => {
+        if (
+          quote.quote
+            .toLowerCase()
+            .includes(state.quotes.search.quote_search.toLowerCase())
+        ) {
+          return quote;
+        } else if (
+          state.quotes.search.quote_search === "" &&
+          state.quotes.search_author === ""
+        ) {
+          return quote;
+        }
+      });
+    },
   },
   actions: {
     quoteUpdater({ commit }, payload) {
@@ -62,6 +84,9 @@ export default {
     },
     quoteDelete({ commit }, payload) {
       return commit("DELETE_QUOTE", payload);
+    },
+    search({ commit }, payload) {
+      return commit("SEARCH", payload);
     },
   },
 };

@@ -50,9 +50,8 @@ export default {
     };
   },
   created() {
-    let index = this.$route.params.id--;
     this.msg = this.$route.params.msg;
-    this.id = index;
+    this.id = this.$route.params.id;
     this.quote = this.$route.params.quote;
     this.author = this.$route.params.author;
     this.genre = this.$route.params.genre;

@@ -1,9 +1,7 @@
 <template>
   <h1>List of Quotes</h1>
   <div class="top_bar">
-    <input type="text" placeholder="Quote..." />
-    <input type="text" placeholder="Author..." />
-    <input type="button" value="Search" />
+    <SearchBar />
     <router-link to="/update">Add new quote</router-link>
   </div>
   <div class="quote_container">
@@ -49,9 +47,9 @@
         </tr>
       </thead>
       <tbody
-        class="bg-white divide-y divide-gray-200"
         v-for="(quote, index) in quotes"
         :key="index"
+        class="bg-white divide-y divide-gray-200"
       >
         <tr>
           <td class="px-6 py-4 whitespace-nowrap">
@@ -75,7 +73,7 @@
             {{ quote.updated_in }}
           </td>
           <td class="px-6 py-4 text-center whitespace-nowrap">
-            <fa class="icon" icon="edit" @click="shareData(quote)" />
+            <fa class="icon" icon="edit" @click="shareData(item)" />
           </td>
           <td
             class="px-6 py-4 justify-center flex gap-x-[10px] whitespace-nowrap text-right text-sm"
@@ -84,7 +82,7 @@
               class="icon"
               @click="
                 openModal = true;
-                selectedQuote = quote.id;
+                selectedQuote = index;
               "
               icon="trash"
             />
@@ -103,20 +101,22 @@
 </template>
 
 <script>
+import SearchBar from "@/components/vuex/SearchBar";
+import { mapGetters } from "vuex";
+
 export default {
   name: "vuex-quotes-table",
-  props: {
-    quotes: {
-      type: Array,
-      required: true,
-    },
-  },
+  components: { SearchBar },
   data() {
     return {
       openModal: false,
       selectedQuote: null,
     };
   },
+  computed: mapGetters({
+    quotes: "getQuotesState",
+    search: "getSearch",
+  }),
   methods: {
     shareData(quote) {
       console.log("in sharedata method", quote);

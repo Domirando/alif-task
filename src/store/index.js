@@ -14,5 +14,8 @@ export default createStore({
     getQuotesState(state) {
       return state.quotesState.quotes.quotes;
     },
+    getSearch(state) {
+      return state.quotesState.quotes.search;
+    },
   },
 });
