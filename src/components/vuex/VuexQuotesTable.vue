@@ -2,7 +2,7 @@
   <h1>List of Quotes</h1>
   <div class="top_bar">
     <SearchBar @searchQuote="searching" />
-    <router-link to="/update" class="text-red-600">Add new quote</router-link >
+    <router-link to="/update" class="text-red-600">Add new quote</router-link>
   </div>
   <div class="quote_container">
     <table class="min-w-full divide-y divide-gray-200">
