@@ -240,6 +240,9 @@ h1 {
   table {
     @apply hidden;
   }
+  .modal {
+    @apply left-0 w-full;
+  }
   .top_bar {
     @apply mb-7 flex flex-col gap-4;
   }
