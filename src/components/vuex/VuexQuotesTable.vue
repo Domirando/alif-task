@@ -1,7 +1,7 @@
 <template>
   <h1>List of Quotes</h1>
   <div class="top_bar">
-    <SearchBar />
+    <SearchBar @searchQuote="searching" />
     <router-link to="/update">Add new quote</router-link>
   </div>
   <div class="quote_container">
@@ -47,7 +47,7 @@
         </tr>
       </thead>
       <tbody
-        v-for="(quote, index) in quotes"
+        v-for="(quote, index) in item ? item : quotes"
         :key="index"
         class="bg-white divide-y divide-gray-200"
       >
@@ -73,7 +73,7 @@
             {{ quote.updated_in }}
           </td>
           <td class="px-6 py-4 text-center whitespace-nowrap">
-            <fa class="icon" icon="edit" @click="shareData(item)" />
+            <fa class="icon" icon="edit" @click="shareData(quote, index)" />
           </td>
           <td
             class="px-6 py-4 justify-center flex gap-x-[10px] whitespace-nowrap text-right text-sm"
@@ -82,7 +82,7 @@
               class="icon"
               @click="
                 openModal = true;
-                selectedQuote = index;
+                selectedQuote = quote.id;
               "
               icon="trash"
             />
@@ -111,6 +111,8 @@ export default {
     return {
       openModal: false,
       selectedQuote: null,
+      item: null,
+      selectedIndex: null,
     };
   },
   computed: mapGetters({
@@ -118,13 +120,47 @@ export default {
     search: "getSearch",
   }),
   methods: {
-    shareData(quote) {
-      console.log("in sharedata method", quote);
+    searching() {
+      this.item = this.quotes.filter((quote) => {
+        if (
+          quote.quote
+            .toLowerCase()
+            .includes(this.search.quote_search.toLowerCase()) &&
+          quote.author
+            .toLowerCase()
+            .includes(this.search.author_search.toLowerCase())
+        ) {
+          return quote;
+        } else if (
+          this.search.quote_search === "" &&
+          this.search.search_author === ""
+        ) {
+          return quote;
+        } else if (
+          this.search.quote_search === "" &&
+          quote.author
+            .toLowerCase()
+            .includes(this.search.author_search.toLowerCase())
+        ) {
+          return quote;
+        } else if (
+          quote.quote
+            .toLowerCase()
+            .includes(this.search.quote_search.toLowerCase()) &&
+          this.search.search_author === ""
+        ) {
+          return quote;
+        }
+      });
+      console.log(this.item);
+    },
+    shareData(quote, index) {
+      this.selectedIndex = index;
       this.$router.push({
         name: "quotes-update",
         params: {
           msg: "Updating",
-          id: quote.id,
+          id: this.selectedIndex,
           quote: quote.quote,
           author: quote.author,
           genre: quote.genre,

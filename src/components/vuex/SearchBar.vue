@@ -21,6 +21,7 @@ export default {
       });
       this.inputAuthor = "";
       this.inputQuote = "";
+      this.$emit("searchQuote");
     },
   },
 };

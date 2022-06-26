@@ -68,6 +68,7 @@ export default {
       });
     },
     addQuote() {
+      console.log("id", this.id);
       console.log("this is", this.genre);
       this.$store.dispatch("quotesModule/quoteAdd", {
         quote: this.quote,

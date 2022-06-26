@@ -36,20 +36,23 @@ export default {
   },
   mutations: {
     UPDATER_QUOTE(state, payload) {
-      state.quotes.quotes[payload.id].quote = payload.quote;
-      state.quotes.quotes[payload.id].author = payload.author;
-      state.quotes.quotes[payload.id].genre = payload.genre;
-      state.quotes.quotes[payload.id].updated_in = payload.updated_in;
+      const quote = state.quotes.quotes[payload.id];
+      quote.quote = payload.quote;
+      quote.author = payload.author;
+      quote.genre = payload.genre;
+      quote.updated_in = payload.updated_in;
     },
     ADD_QUOTE(state, payload) {
+      let new_id = state.quotes.quotes.length + 1;
       state.quotes.quotes.push({
-        id: state.quotes.quotes.length,
+        id: new_id,
         quote: payload.quote,
         author: payload.author,
         genre: payload.genre,
         written_in: payload.written_in,
         updated_in: "not yet",
       });
+      console.log(state.quotes.quotes);
     },
     DELETE_QUOTE(state, payload) {
       state.quotes.quotes = state.quotes.quotes.filter(
@@ -59,37 +62,6 @@ export default {
     SEARCH(state, payload) {
       state.quotes.search.quote_search = payload.search_quote;
       state.quotes.search.author_search = payload.search_author;
-      state.quotes.quotes = state.quotes.quotes.filter((quote) => {
-        if (
-          quote.quote
-            .toLowerCase()
-            .includes(state.quotes.search.quote_search.toLowerCase()) &&
-          quote.author
-            .toLowerCase()
-            .includes(state.quotes.search.author_search.toLowerCase())
-        ) {
-          return quote;
-        } else if (
-          state.quotes.search.quote_search === "" &&
-          state.quotes.search_author === ""
-        ) {
-          return quote;
-        } else if (
-          state.quotes.search.quote_search === "" &&
-          quote.author
-            .toLowerCase()
-            .includes(state.quotes.search.author_search.toLowerCase())
-        ) {
-          return quote;
-        } else if (
-          quote.quote
-            .toLowerCase()
-            .includes(state.quotes.search.quote_search.toLowerCase()) &&
-          state.quotes.search_author === ""
-        ) {
-          return quote;
-        }
-      });
     },
   },
   actions: {
