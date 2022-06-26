@@ -3,33 +3,41 @@
     <h3>{{ msg }}</h3>
     <form class="review-form" @submit.prevent="">
       <label for="name">Author:</label>
-      <input id="name" v-model="author" />
-
+      <input
+        id="name"
+        v-model="author"
+        class="border-2 rounded-xl p-2 outline-0"
+      />
       <label for="review">Quote:</label>
-      <textarea id="review" v-model="quote"></textarea>
-
+      <textarea
+        class="border-2 rounded-xl p-2 outline-0"
+        id="review"
+        v-model="quote"
+      ></textarea>
       <label for="rating">Genre:</label>
-      <input id="genre" v-model="genre" />
-
+      <input
+        class="border-2 rounded-xl p-2 outline-0"
+        id="genre"
+        v-model="genre"
+      />
+      <p class="text-red-700 italic" v-if="!filled && btn_clicked">
+        please fill all inputs!
+      </p>
       <span v-if="id">
-        <router-link to="/">
-          <input
-            class="button"
-            type="submit"
-            @click="updateQuote()"
-            value="Submit"
-          />
-        </router-link>
+        <input
+          class="button"
+          type="submit"
+          @click="updateQuote()"
+          value="Submit"
+        />
       </span>
       <span v-else>
-        <router-link to="/">
-          <input
-            class="button"
-            type="submit"
-            @click="addQuote()"
-            value="Submit"
-          />
-        </router-link>
+        <input
+          class="button"
+          type="submit"
+          @click="addQuote()"
+          value="Submit"
+        />
       </span>
     </form>
   </div>
@@ -41,11 +49,13 @@ export default {
     return {
       msg: "",
       id: null,
-      quote: "",
-      author: "",
-      genre: "",
+      quote: null,
+      filled: true,
+      author: null,
+      genre: null,
       updated_in: "",
       written_in: "",
+      btn_clicked: false,
       date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
     };
   },
@@ -59,23 +69,33 @@ export default {
   },
   methods: {
     updateQuote() {
-      this.$store.dispatch("quotesModule/quoteUpdater", {
-        id: this.id,
-        quote: this.quote,
-        author: this.author,
-        genre: this.genre,
-        updated_in: this.date,
-      });
+      if (this.quote && this.author && this.genre) {
+        this.$store.dispatch("quotesModule/quoteUpdater", {
+          id: this.id,
+          quote: this.quote,
+          author: this.author,
+          genre: this.genre,
+          updated_in: this.date,
+        });
+        this.$router.push("/");
+      } else if (!this.quote || !this.author || !this.genre) {
+        this.filled = false;
+        this.btn_clicked = true;
+      }
     },
     addQuote() {
-      console.log("id", this.id);
-      console.log("this is", this.genre);
-      this.$store.dispatch("quotesModule/quoteAdd", {
-        quote: this.quote,
-        author: this.author,
-        genre: this.genre,
-        written_in: this.date,
-      });
+      if (this.quote && this.author && this.genre) {
+        this.$store.dispatch("quotesModule/quoteAdd", {
+          quote: this.quote,
+          author: this.author,
+          genre: this.genre,
+          written_in: this.date,
+        });
+        this.$router.push("/");
+      } else if (!this.quote || !this.author || !this.genre) {
+        this.filled = false;
+        this.btn_clicked = true;
+      }
     },
   },
 };

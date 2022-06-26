@@ -34,7 +34,7 @@ export default {
   @apply gap-2 flex justify-between;
 }
 .btn {
-  @apply bg-cyan-400 text-white;
+  @apply bg-cyan-400 text-white cursor-pointer;
 }
 input {
   @apply border-2 border-cyan-500 rounded-2xl p-2 px-5 outline-0;
