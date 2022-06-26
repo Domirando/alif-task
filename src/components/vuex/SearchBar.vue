@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   name: "SearchBar",
   data() {
@@ -25,10 +23,6 @@ export default {
       this.inputQuote = "";
     },
   },
-  computed: mapGetters({
-    quuuotes: "getQuotesState",
-    seearch: "getSearch",
-  }),
 };
 </script>
 

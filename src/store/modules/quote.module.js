@@ -63,11 +63,28 @@ export default {
         if (
           quote.quote
             .toLowerCase()
-            .includes(state.quotes.search.quote_search.toLowerCase())
+            .includes(state.quotes.search.quote_search.toLowerCase()) &&
+          quote.author
+            .toLowerCase()
+            .includes(state.quotes.search.author_search.toLowerCase())
         ) {
           return quote;
         } else if (
           state.quotes.search.quote_search === "" &&
+          state.quotes.search_author === ""
+        ) {
+          return quote;
+        } else if (
+          state.quotes.search.quote_search === "" &&
+          quote.author
+            .toLowerCase()
+            .includes(state.quotes.search.author_search.toLowerCase())
+        ) {
+          return quote;
+        } else if (
+          quote.quote
+            .toLowerCase()
+            .includes(state.quotes.search.quote_search.toLowerCase()) &&
           state.quotes.search_author === ""
         ) {
           return quote;
