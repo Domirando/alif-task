@@ -34,9 +34,14 @@ export default {
   @apply gap-2 flex justify-between;
 }
 .btn {
-  @apply bg-cyan-400;
+  @apply bg-cyan-400 text-white;
 }
 input {
   @apply border-2 border-cyan-500 rounded-2xl p-2 px-5 outline-0;
+}
+@media only screen and (max-width: 940px) {
+  .search_bar {
+    @apply flex-col;
+  }
 }
 </style>

@@ -10,7 +10,7 @@
         <tr>
           <th
             scope="col"
-            class="px-6 py-4 text-left text-xs text-center w-1/3 bg-cyan-200 font-extrabold font-medium text-gray-500 uppercase tracking-wider"
+            class="px-6 py-4 text-left text-white text-xs text-center w-1/3 bg-cyan-400 font-extrabold uppercase tracking-wider"
           >
             Quote
           </th>
@@ -46,18 +46,11 @@
           </th>
         </tr>
       </thead>
-      <tbody
-        v-for="(quote, index) in item ? item : quotes"
-        :key="index"
-        class="bg-white divide-y divide-gray-200"
-      >
-        <tr>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr v-for="(quote, index) in item ? item : quotes" :key="index">
           <td class="px-6 py-4 whitespace-nowrap">
             <div class="flex items-center justify-center">
-              <div>
-                <div class="text-sm font-medium text-gray-900"></div>
-                <div class="text-sm text-gray-700">{{ quote.quote }}</div>
-              </div>
+              <div class="text-sm text-gray-700">{{ quote.quote }}</div>
             </div>
           </td>
 
@@ -67,29 +60,68 @@
           <td class="px-6 py-4 text-center whitespace-nowrap">
             <div class="text-sm text-gray-700">{{ quote.genre }}</div>
           </td>
-          <td
-            class="px-6 py-4 justify-center flex gap-x-[10px] whitespace-nowrap text-right text-sm"
-          >
+          <td class="px-6 py-4 text-center whitespace-nowrap">
             {{ quote.updated_in }}
           </td>
           <td class="px-6 py-4 text-center whitespace-nowrap">
             <fa class="icon" icon="edit" @click="shareData(quote, index)" />
           </td>
-          <td
-            class="px-6 py-4 justify-center flex gap-x-[10px] whitespace-nowrap text-right text-sm"
-          >
+          <td class="px-6 py-4 text-center whitespace-nowrap">
             <fa
               class="icon"
+              icon="trash"
               @click="
                 openModal = true;
                 selectedQuote = quote.id;
               "
-              icon="trash"
             />
           </td>
         </tr>
       </tbody>
     </table>
+    <div class="quotes">
+      <div
+        class="quote"
+        v-for="(quote, index) in item ? item : quotes"
+        :key="index"
+      >
+        <span class="titles_value">
+          <p>Quote</p>
+          <p>{{ quote.quote }}</p>
+        </span>
+        <span class="titles_value">
+          <p>Author</p>
+          <p>{{ quote.author }}</p>
+        </span>
+        <span class="titles_value">
+          <p>Genre</p>
+          <p>{{ quote.genre }}</p>
+        </span>
+        <span class="titles_value">
+          <p>Updated in</p>
+          <p>{{ quote.updated_in }}</p>
+        </span>
+        <span class="titles_value">
+          <p>Edit</p>
+          <p>
+            <fa class="icon" icon="edit" @click="shareData(quote, index)" />
+          </p>
+        </span>
+        <span class="titles_value">
+          <p>Delete</p>
+          <p>
+            <fa
+              class="icon"
+              icon="trash"
+              @click="
+                openModal = true;
+                selectedQuote = quote.id;
+              "
+            />
+          </p>
+        </span>
+      </div>
+    </div>
   </div>
   <div v-if="openModal" class="modal">
     <p>Do you want to continue deleting quote?</p>
@@ -185,7 +217,7 @@ h1 {
 }
 
 .quote_container {
-  @apply text-cyan-600 flex justify-between my-3;
+  @apply text-cyan-600 my-3;
 }
 
 .icon {
@@ -200,5 +232,37 @@ h1 {
 }
 .btns {
   @apply flex justify-between mt-10 text-red-700;
+}
+.quotes {
+  @apply hidden;
+}
+@media only screen and (max-width: 940px) {
+  table {
+    @apply hidden;
+  }
+  .top_bar {
+    @apply mb-7 flex flex-col gap-4;
+  }
+  .quotes {
+    @apply block;
+  }
+  .quote > span {
+    @apply flex gap-8;
+  }
+  .quote_container {
+    @apply flex flex-col gap-6;
+  }
+  .quotes > div > span {
+    @apply flex justify-between;
+  }
+  .quotes > div > span > p:nth-of-type(1) {
+    @apply text-cyan-600 font-bold;
+  }
+  .quote {
+    @apply flex border-b-2 border-cyan-600 flex-col pb-4 mb-4;
+  }
+  .quote > span > p:nth-of-type(2) {
+    @apply text-slate-800;
+  }
 }
 </style>

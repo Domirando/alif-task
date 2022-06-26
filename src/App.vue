@@ -20,18 +20,29 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @apply mx-24 relative min-h-full text-[#2c3e50] text-center;
+  @apply mx-24 relative min-h-full flex flex-col text-[#2c3e50] text-center;
 }
 
 nav {
   padding: 30px;
+  height: 50px;
 }
 
 nav .logo {
   @apply font-bold float-left text-2xl;
 }
-
 footer {
-  @apply bg-slate-100 bottom-0 w-full h-[40px] absolute;
+  @apply flex justify-center h-[50px];
+}
+main {
+  min-height: calc(100vh - 50px - 50px);
+}
+@media only screen and (max-width: 940px) {
+  #app {
+    @apply mx-8 overscroll-x-none items-end text-center;
+  }
+  footer {
+    @apply pt-8;
+  }
 }
 </style>
