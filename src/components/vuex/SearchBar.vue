@@ -1,7 +1,9 @@
 <template>
-  <input type="text" v-model.trim="inputQuote" placeholder="Quote..." />
-  <input v-model.trim="inputAuthor" type="text" placeholder="Author..." />
-  <input type="button" class="btn" value="Search" @click="searchQuote()" />
+  <div class="search_bar">
+    <input type="text" v-model.trim="inputQuote" placeholder="Quote..." />
+    <input v-model.trim="inputAuthor" type="text" placeholder="Author..." />
+    <input type="button" class="btn" value="Search" @click="searchQuote()" />
+  </div>
 </template>
 
 <script>
@@ -28,7 +30,13 @@ export default {
 </script>
 
 <style scoped>
+.search_bar {
+  @apply gap-2 flex justify-between;
+}
 .btn {
-  @apply bg-red-400;
+  @apply bg-cyan-400;
+}
+input {
+  @apply border-2 border-cyan-500 rounded-2xl p-2 px-5 outline-0;
 }
 </style>

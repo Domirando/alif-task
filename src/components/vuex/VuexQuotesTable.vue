@@ -2,7 +2,7 @@
   <h1>List of Quotes</h1>
   <div class="top_bar">
     <SearchBar @searchQuote="searching" />
-    <router-link to="/update">Add new quote</router-link>
+    <router-link to="/update" class="text-red-600">Add new quote</router-link >
   </div>
   <div class="quote_container">
     <table class="min-w-full divide-y divide-gray-200">
@@ -185,7 +185,7 @@ h1 {
 }
 
 .quote_container {
-  @apply text-amber-600 flex justify-between my-3;
+  @apply text-cyan-600 flex justify-between my-3;
 }
 
 .icon {

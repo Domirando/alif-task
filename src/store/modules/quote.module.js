@@ -52,7 +52,6 @@ export default {
         written_in: payload.written_in,
         updated_in: "not yet",
       });
-      console.log(state.quotes.quotes);
     },
     DELETE_QUOTE(state, payload) {
       state.quotes.quotes = state.quotes.quotes.filter(
