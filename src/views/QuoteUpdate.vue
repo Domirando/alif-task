@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3>{{ msg }}</h3>
+    <h3>{{ message }}</h3>
     <form class="review-form" @submit.prevent="">
       <label for="name">Author:</label>
       <input
@@ -47,8 +47,8 @@
 export default {
   data() {
     return {
-      msg: "",
       id: null,
+      message: "Adding a quote",
       quote: null,
       filled: true,
       author: null,
@@ -60,12 +60,14 @@ export default {
     };
   },
   created() {
-    this.msg = this.$route.params.msg;
-    this.id = this.$route.params.id;
-    this.quote = this.$route.params.quote;
-    this.author = this.$route.params.author;
-    this.genre = this.$route.params.genre;
-    this.updated_in = this.date;
+    if (this.$route.params.msg) {
+      this.message = this.$route.params.msg;
+      this.id = this.$route.params.id;
+      this.quote = this.$route.params.quote;
+      this.author = this.$route.params.author;
+      this.genre = this.$route.params.genre;
+      this.updated_in = this.date;
+    }
   },
   methods: {
     updateQuote() {
@@ -86,6 +88,7 @@ export default {
     addQuote() {
       if (this.quote && this.author && this.genre) {
         this.$store.dispatch("quotesModule/quoteAdd", {
+          msg: "Adding new quote",
           quote: this.quote,
           author: this.author,
           genre: this.genre,

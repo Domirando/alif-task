@@ -52,6 +52,7 @@ export default {
         written_in: payload.written_in,
         updated_in: "not yet",
       });
+      state.quotes.msg = payload.msg;
     },
     DELETE_QUOTE(state, payload) {
       state.quotes.quotes = state.quotes.quotes.filter(

@@ -191,7 +191,7 @@ export default {
       this.$router.push({
         name: "quotes-update",
         params: {
-          msg: "Updating",
+          msg: "Updating a quote",
           id: this.selectedIndex,
           quote: quote.quote,
           author: quote.author,
