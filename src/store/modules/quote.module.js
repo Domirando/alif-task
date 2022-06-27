@@ -9,24 +9,25 @@ export default {
       quotes: [
         {
           id: 1,
-          quote: "never ever loose someone's trust",
-          author: "Domirando",
+          quote: "Be yourself; everyone else is already taken.",
+          author: "Oscar Wilde",
           genre: "smth",
           written_in: "12/12/2021",
           updated_in: "not yet",
         },
         {
           id: 2,
-          quote: "2 never ever loose someone's trust",
-          author: "Domirando",
+          quote:
+            "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
+          author: "Albert Einstein",
           genre: "smth",
           written_in: "25/12/2021",
           updated_in: "not yet",
         },
         {
           id: 3,
-          quote: "3 never ever loose someone's trust",
-          author: "Domirando",
+          quote: "So many books, so little time.",
+          author: "Frank Zappa",
           genre: "smth",
           written_in: "25/12/2021",
           updated_in: "not yet",

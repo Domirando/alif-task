@@ -50,7 +50,7 @@
         <tr v-for="(quote, index) in item ? item : quotes" :key="index">
           <td class="px-6 py-4 whitespace-nowrap">
             <div class="flex items-center justify-center">
-              <div class="text-sm text-gray-700">{{ quote.quote }}</div>
+              <div class="text-sm text-gray-700">"{{ quote.quote }}"</div>
             </div>
           </td>
 
